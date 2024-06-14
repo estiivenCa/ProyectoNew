@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-sm-8 col-md-5">
                 <div class="task-form p-5 bg-white">
-                    <h1 class="text-center font-weight-bold py-4 text-dark">Create tasks</h1>
+                    <h1 class="text-center font-weight-bold py-4 text-dark">Edit tasks</h1>
                     <form method="POST" v-on:submit.prevent="saveTask()">
                         <div class="form-group">
                             <input type="text" v-model="tasks" class="form-control mb-3" placeholder="New Task"
