@@ -1,12 +1,12 @@
 <template>
     <div class="w-full sm:w-8/12 md:w-5/12 p-5 bg-white">
-        <div v-for="task in tasks" :key="task.id"
-        class="task-item d-flex justify-content-center p-2 border-bottom my-2">
-            <input type="checkbox">
+        <div v-for="task in tasks.data" :key="task.id"
+            class="task-item d-flex justify-content-center p-2 border-bottom my-2">
+            <input type="checkbox" :checked="checkCompleted(task.completed)"
+             @click="completeTask(task)">
             <p class="task-text mx-2 mt-1 text-dark">{{ task.todo }}</p>
             <div class="task-actions ml-auto d-flex">
-                <router-link :to="'/edit/'+task.id"
-                 class="btn btn-link p-0" style="width: 32px; height: 32px;">
+                <router-link :to="'/edit/' + task.id" class="btn btn-link p-0" style="width: 32px; height: 32px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-pencil-square" viewBox="0 0 16 16">
                         <path
@@ -14,8 +14,8 @@
                         <path fill-rule="evenodd"
                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                     </svg>
-                </router-link> 
-                <form class="delete-form d-inline-block">
+                </router-link>
+                <form v-on:submit.prevent="deleteTask(task.id)" class="delete-form d-inline-block">
                     <button type="submit" class="btn btn-link p-0" style="width: 32px; height: 32px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash" viewBox="0 0 16 16">
@@ -27,17 +27,50 @@
                     </button>
                 </form>
             </div>
+            <!--   <pagination :data="tasks" @pagination-change-page="getTasks"></pagination> -->
+          
         </div>
-
-
-
+        <advanced-laravel-vue-paginate :data="tasks" @paginateTo="getTasks"/>
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
-            tasks: []
+            tasks: {}
+        }
+    },
+  
+    methods: {
+        getTasks(page = 1) {
+            axios.get('/tasks?page' + page)
+                .then(response => this.tasks = response.data)
+                .catch();
+        },
+        deleteTask(id) {
+            axios.delete('/tasks/' + id)
+                .then(response => { console.log(response) })
+                .catch(error => { console.log(error.response) });
+            this.getTasks();
+        },
+        completeTask(tasks) {
+            if (tasks.completed === 0) {
+                var complete = 1;
+            } else {
+                var complete = 0;
+            }
+            axios.put('/tasks/' + tasks.id, {
+                tasks: tasks.todo,
+                completed: complete
+            }).then(response => { console.log(response) })
+                .catch(error => { console.log(error.response) });
+        },
+        checkCompleted(params) {
+            if (params === 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     },
     created() {
