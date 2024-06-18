@@ -2,15 +2,11 @@
 @section("content")
 
 <nav class="flex p-4">
-    <router-link to="/form" 
+    <router-link to="/home" 
     class="text-xl text-white mx-3 p-2" 
     active-class="font-bold" 
-    exact>Add task</router-link>
+    exact> Home</router-link>
 
-    <router-link to="/" 
-    class="text-xl text-white mx-3 p-2" 
-    active-class="font-bold" 
-    exact>Task Lists </router-link>
 </nav>
 
 <div class="d-flex justify-content-center mt-5">
