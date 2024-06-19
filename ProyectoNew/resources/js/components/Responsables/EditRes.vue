@@ -4,22 +4,22 @@
         <form method="POST" v-on:submit.prevent="saveResponsable">
             <div class="form-group">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" id="nombre" v-model="responsable.nombres" placeholder="Nombre"
+                <input type="text" id="nombre" v-model="responsables.nombres" placeholder="Nombre"
                     class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-3">
                 <label for="apellidos" class="form-label">Apellidos</label>
-                <input type="text" id="apellidos" v-model="responsable.apellidos" placeholder="Apellidos"
+                <input type="text" id="apellidos" v-model="responsables.apellidos" placeholder="Apellidos"
                     class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" v-model="responsable.email" placeholder="Email"
+                <input type="email" id="email" v-model="responsables.email" placeholder="Email"
                     class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-3">
                 <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" id="telefono" v-model="responsable.telefono" placeholder="Teléfono"
+                <input type="text" id="telefono" v-model="responsables.telefono" placeholder="Teléfono"
                     class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-4 text-center">
@@ -38,17 +38,19 @@ export default {
     data() {
         return {
             id: this.$route.params.id,
-            responsable: {}
-        };
+            responsables: {
+          
+            }
+        }
     },
     created() {
-        axios.get('/responsible/' + this.id + '/editRes')
-            .then(response => { this.responsable = response.data; })
-            .catch(error => { console.log(error) });
+        axios.get('/responsables/' + this.id + '/edit')
+            .then(response => this.responsables = response.data)
+            .catch();
     },
     methods: {
         saveResponsable() {
-            axios.put('/responsible/' + this.id, this.responsable)
+            axios.put('/responsables/' + this.id, this.responsables)
                 .then(response => { console.log(response.data) })
                 .catch(error => { console.log(error.response) });
             this.$router.push('/listRes');

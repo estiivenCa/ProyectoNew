@@ -9,4 +9,9 @@ class Responsables extends Model
 {
     use HasFactory;
     protected $fillable  = ['nombres', 'apellidos', 'email', 'telefono'];
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

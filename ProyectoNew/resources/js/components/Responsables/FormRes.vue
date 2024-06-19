@@ -9,25 +9,25 @@
                     <div class="form-group row">
                         <label for="nombre" class="col-sm-2 col-form-label">Nombres:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombre" v-model="usuario.nombres" required>
+                            <input type="text" class="form-control" id="nombre" v-model="responsables.nombres" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="apellidos" v-model="usuario.apellidos" required>
+                            <input type="text" class="form-control" id="apellidos" v-model="responsables.apellidos" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="email" v-model="usuario.email" required>
+                            <input type="email" class="form-control" id="email" v-model="responsables.email" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="telefono" class="col-sm-2 col-form-label">Teléfono:</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="telefono" v-model="usuario.telefono" required>
+                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -48,7 +48,7 @@
 export default {
     data() {
         return {
-            usuario: {
+            responsables: {
                 nombres: '',
                 apellidos: '',
                 email: '',
@@ -58,10 +58,10 @@ export default {
     },
     methods: {
         saveResponsable() {
-            axios.post('/responsables',   this.usuario, )
+            axios.post('/responsables',   this.responsables, )
                 .then(response => { console.log(response) })
                 .catch(error => { console.log(error.response) });
-                this.usuario = {
+                this.responsables = {
                         nombres: '',
                         apellidos: '',
                         email: '',
