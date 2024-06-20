@@ -34,8 +34,9 @@
 
 
 <script>
-
+import { validationMixin } from 'vuelidate'
 export default {
+    
     data() {
         return {
             tasks: '',
@@ -49,7 +50,7 @@ export default {
             axios.post('/tasks', {
                 todo: this.tasks,
                 fecha: this.fecha,
-                responsableId: this.selectedResponsible
+                responsable_id: this.selectedResponsible
             })
                 .then(response => { console.log(response) })
                 .catch(error => { console.log(error.response) });
@@ -139,3 +140,6 @@ h1 {
     border-color: #6c757d;
 }
 </style>
+
+
+

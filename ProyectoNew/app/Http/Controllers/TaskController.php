@@ -10,12 +10,13 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::paginate(5);
+        $tasks = Task::with('responsable')->paginate(5);
         return response()->json($tasks);
     }
 
     public function store(Request $request)
     {
+      
         Task::create($request->all());
     }
 
@@ -38,6 +39,7 @@ class TaskController extends Controller
         $tasks = Task::find($id);
         $tasks->todo = $request['todo'];
         $tasks->completed = $request['completed'];
+        $tasks->responsable_id = $request['responsable_id'];
         $tasks->update();
     }
 

@@ -24,7 +24,7 @@
                             <p class="task-text mx-2 mt-1 text-dark">{{ task.todo }}</p>
                         </td>
                         <td>
-                            <p class="text-muted"> {{ task.responsable_id }}</p>
+                            <p class="text-muted"> {{ task.responsable.nombres }} {{ task.responsable.apellidos }}</p>
                         </td>
                         <td>
                             <div class="task-actions">
@@ -60,9 +60,11 @@ export default {
         return {
             tasks: {
             },
-        
+            responsables: [],
             selectedResponsible: null,
-            fecha: null
+            fecha: null,
+            responsable_id: null,
+          
         }
     },
   
@@ -88,7 +90,8 @@ export default {
             }
             axios.put('/tasks/' + tasks.id, {
                 tasks: tasks.todo,
-                completed: complete
+                completed: complete,
+                responsable_id: responsable_id
             }).then(response => { console.log(response) })
                 .catch(error => { console.log(error.response) });
         },

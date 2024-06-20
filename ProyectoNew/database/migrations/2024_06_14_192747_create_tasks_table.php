@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('fecha');
             $table->string('todo');
             $table->boolean('completed')->default(0);
-            $table->string('responsable_id');
+            $table->unsignedBigInteger('responsable_id');
             $table->timestamps();
         });
     }

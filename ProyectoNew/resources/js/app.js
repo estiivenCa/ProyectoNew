@@ -8,6 +8,8 @@ Vue.use(require("advanced-laravel-vue-paginate"));
 // or, import as a single Vue component
 import AdvancedLaravelVuePaginate from "advanced-laravel-vue-paginate";
 import "advanced-laravel-vue-paginate/dist/advanced-laravel-vue-paginate.css";
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 
 Vue.use(VueRouter);
 

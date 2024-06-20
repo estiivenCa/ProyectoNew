@@ -1,6 +1,6 @@
 <template>
     <form class="container text-center mt-5 bg-light">
-        <button @click="createResponsables()" class="btn btn-info float-right">Create Task</button>
+        <button @click="createResponsables()" class="btn btn-info float-right">Create Responsable</button>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -8,7 +8,6 @@
                     <th scope="col">Apellidos</th>
                     <th scope="col">Email</th>
                     <th scope="col">Teléfono</th>
-                    <th scope="col">Responsable</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -18,11 +17,11 @@
                     <td>{{ responsable.apellidos }}</td>
                     <td>{{ responsable.email }}</td>
                     <td>{{ responsable.telefono }}</td>
-                    <td>
+                   <!--  <td>
                         <ul>
                             <li v-for="task in responsable.tasks" :key="task.id">{{ task.todo }}</li>
                         </ul>
-                    </td>
+                    </td> -->
                     <td>
                         <div class="task-actions">
                     <router-link :to="'/editRes/' + responsable.id" class="btn btn-link p-0">

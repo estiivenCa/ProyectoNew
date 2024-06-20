@@ -7,7 +7,7 @@ use App\Models\Responsables;
 
 class ResponsablesController extends Controller
 {
-  
+     
     public function index()
     {
         $Responsables = Responsables::paginate(5);
