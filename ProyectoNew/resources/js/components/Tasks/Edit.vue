@@ -4,14 +4,23 @@
             <div class="col-sm-10 col-md-6 col-lg-5">
                 <div class="task-form p-4 shadow rounded bg-light">
                     <h1 class="text-center font-weight-bold py-3 text-dark">Edit Task {{ id }}</h1>
-                    <form method="POST" v-on:submit.prevent="saveTask()">
+                    <form @submit.prevent="saveTask">
                         <div class="form-group">
                             <input type="text" v-model="tasks.todo" class="form-control mb-3" placeholder="New Task"
                                 name="todo">
+                            <small v-if="error" class="text-danger">{{ error }}</small>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="responsables">Responsable:</label>
+                            <select v-model="selectedResponsible" class="form-control" id="responsable"
+                                name="responsables">
+                                <option v-for="responsable in responsables.data" :key="responsable.id"
+                                    :value="responsable.id">{{ responsable.nombres }} {{ responsable.nombres }}</option>
+                            </select>
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-success text-white w-48">Save</button>
-                            <button @click="goBack()" class="btn btn-secondary w-48">Back</button>
+                            <button @click="goBack" class="btn btn-secondary w-48">Back</button>
                         </div>
                     </form>
                 </div>
@@ -21,39 +30,68 @@
 </template>
 
 
-
 <script>
-
+import axios from 'axios';
 export default {
     data() {
         return {
             id: this.$route.params.id,
-            tasks: []
-        }
+            tasks: {
+                todo: '',
+                completed: false,
+                responsable_id: null
+            },
+            error: '',
+            selectedResponsible: null,
+            responsables: []
+        };
     },
     created() {
-        axios.get('/tasks/' + this.id + '/edit')
-            .then(response => this.tasks = response.data)
-            .catch();
+        this.getResponsables();
+        axios.get(`/tasks/${this.id}/edit`)
+            .then(response => {
+                this.tasks = response.data;
+                this.tasks.responsable_id = this.tasks.responsable_id;
+            })
+            .catch(error => console.error('Error al cargar la tarea:', error));
     },
     methods: {
+        getResponsables() {
+            axios.get('/responsables')
+                .then(response => {
+                    this.responsables = response.data;
+                })
+                .catch(error => {
+                    console.error('Error al cargar responsables:', error);
+                });
+        },
         saveTask() {
-            axios.put('/tasks/' + this.id, {
+            if (!this.tasks.todo.trim()) {
+                this.error = 'Task description empty.';
+                return;
+            }
+
+            axios.put(`/tasks/${this.id}`, {
                 todo: this.tasks.todo,
-                completed: this.tasks.completed
+                completed: this.tasks.completed,
+                responsable_id: this.tasks.responsable_id
             })
-                .then(response => { console.log(response) })
-                .catch(error => { console.log(error.response) });
-            this.tasks.todo = ''
-            this.tasks.completed = ''
-            this.$router.push('/');
+                .then(response => {
+                    console.log(response);
+                    this.$router.push('/');
+                })
+                .catch(error => {
+                    console.error('Error al guardar la tarea:', error);
+                });
         },
         goBack() {
-            this.$router.push('/')
-        },
+            this.$router.push('/');
+        }
     }
-}
+};
 </script>
+
+
 <style>
 .task-form {
     border-radius: 10px;
