@@ -10,39 +10,33 @@
                         <label for="nombre" class="col-sm-2 col-form-label">Nombres:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="nombre" v-model="responsables.nombres" required>
-                            <div v-if="$v.responsables.nombres.$error" class="text-danger">Campo obligatorio</div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="apellidos" v-model="responsables.apellidos" required>
-                            <div v-if="$v.responsables.apellidos.$error" class="text-danger">Campo obligatorio</div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="email" v-model="responsables.email" required>
+                            <input type="email" class="form-control" id="email" v-model="responsables.email" required maxLength="30">
                             <div v-if="$v.responsables.email.$error" class="text-danger">
-                                <div v-if="!$v.responsables.email.required">Email es requerido</div>
-                                <div v-if="!$v.responsables.email.email">Email no es válido</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="telefono" class="col-sm-2 col-form-label">Teléfono:</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono" required>
+                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono" required minlength="10" >
                             <div v-if="$v.responsables.telefono.$error" class="text-danger">
-                                <div v-if="!$v.responsables.telefono.required">Teléfono es requerido</div>
-                                <div v-if="!$v.responsables.telefono.numeric">Teléfono debe contener solo números</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success ml-2 text-white mr-2">Guardar</button>
+                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success ml-2 text-white mr-2">Save</button>
                             <button @click="goBack()" class="btn btn-secondary ml-2">Back</button>
                         </div>
                     </div>
@@ -53,7 +47,7 @@
 </template>
 
 <script>
-import { required, email, numeric } from 'vuelidate/lib/validators';
+import { required, email, numeric, maxLength, minLength } from 'vuelidate/lib/validators';
 
 export default {
     data() {
@@ -70,8 +64,8 @@ export default {
         responsables: {
             nombres: { required },
             apellidos: { required },
-            email: { required, email },
-            telefono: { required, numeric }
+            email: { required, email, minLength: minLength(5), maxLength: maxLength(20) },
+            telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }
     },
     methods: {

@@ -30,6 +30,7 @@ class TaskController extends Controller
 
         $tasks = Task::find($id);
         return response()->json($tasks);
+
     }
 
 
@@ -38,6 +39,7 @@ class TaskController extends Controller
 
         $tasks = Task::find($id);
         $tasks->todo = $request['todo'];
+        $tasks->fecha = $request['fecha'];
         $tasks->completed = $request['completed'];
         $tasks->responsable_id = $request['responsable_id'];
         $tasks->update();

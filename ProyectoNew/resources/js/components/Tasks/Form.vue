@@ -7,7 +7,7 @@
                     <form method="POST" v-on:submit.prevent="saveTask()">
                         <div class="form-group mb-4" :class="{ 'has-error': $v.tasks.$error }">
                             <label for="description">Descripción:</label>
-                            <input type="text" v-model="$v.tasks.$model" class="form-control" placeholder="Nueva Tarea" name="todo">
+                            <input type="text" v-model="$v.tasks.$model" class="form-control" placeholder="New task..." name="todo">
                         </div>
                         <div class="form-group mb-4" :class="{ 'has-error': $v.fecha.$error }">
                             <label for="dueDate">Fecha:</label>
@@ -16,12 +16,13 @@
                         <div class="form-group mb-4" :class="{ 'has-error': $v.selectedResponsible.$error }">
                             <label for="responsables">Responsable:</label>
                             <select v-model="$v.selectedResponsible.$model" class="form-control" id="responsable" name="responsables">
-                                <option v-for="responsable in responsables.data" :key="responsable.id" :value="responsable.id">{{ responsable.nombres }}</option>
+                                <option value="" disabled>Select Responsable...</option>
+                                <option v-for="responsable in responsables.data" :key="responsable.id" :value="responsable.id">{{ responsable.nombres }} {{ responsable.apellidos }}</option>
                             </select>
                         </div>
                         <div class="form-group d-flex justify-content-between">
-                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success w-100 text-white mr-2">Guardar</button>
-                            <button @click="goBack()" class="btn btn-secondary w-100 ml-2">Volver</button>
+                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success w-100 text-white mr-2">Save</button>
+                            <button @click="goBack()" class="btn btn-secondary w-100 ml-2">Back</button>
                         </div>
                     </form>
                 </div>
@@ -42,7 +43,7 @@ export default {
         return {
             tasks: '',
             fecha: '',
-            selectedResponsible: null,
+            selectedResponsible: '',
             responsables: { data: [] }  
         }
     },
@@ -62,7 +63,6 @@ export default {
     methods: {
         saveTask() {
             this.$v.$touch()
-
             if (!this.$v.$invalid) {
                 axios.post('/tasks', {
                     todo: this.tasks,
