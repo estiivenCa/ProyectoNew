@@ -94,9 +94,10 @@ export default {
                 var complete = 0;
             }
             axios.put('/tasks/' + tasks.id, {
-                tasks: tasks.todo,
+                todo: tasks.todo,
                 completed: complete,
-                responsable_id: responsable_id
+                fecha: tasks.fecha,
+                responsable_id: tasks.responsable_id
             }).then(response => { console.log(response) })
                 .catch(error => { console.log(error.response) });
         },
