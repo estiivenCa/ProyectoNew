@@ -1,8 +1,8 @@
 <template>
     <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h2 class="text-center">Create Responsable</h2>
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h2 class="text-center mb-0">Crear Responsable</h2>
             </div>
             <div class="card-body">
                 <form method="POST" v-on:submit.prevent="saveResponsable()">
@@ -23,21 +23,23 @@
                         <div class="col-sm-10">
                             <input type="email" class="form-control" id="email" v-model="responsables.email" required maxLength="30">
                             <div v-if="$v.responsables.email.$error" class="text-danger">
+                                Correo inválido.
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="telefono" class="col-sm-2 col-form-label">Teléfono:</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono" required minlength="10" >
+                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono" required minlength="10" maxlength="10">
                             <div v-if="$v.responsables.telefono.$error" class="text-danger">
+                                Teléfono inválido.
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success ml-2 text-white mr-2">Save</button>
-                            <button @click="goBack()" class="btn btn-secondary ml-2">Back</button>
+                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success text-white mr-2">Guardar</button>
+                            <button @click="goBack()" class="btn btn-secondary">Volver</button>
                         </div>
                     </div>
                 </form>
@@ -74,7 +76,7 @@ export default {
             if (!this.$v.$invalid) {
                 axios.post('/responsables', this.responsables)
                     .then(response => {
-                        this.$router.push({ path: '/listRes', query: { successMessage: 'Responsable created successfully!' } });
+                        this.$router.push({ path: '/listRes', query: { successMessage: 'Responsable create successfully!' } });
                     })
                     .catch(error => { console.log(error.response) });
                 this.responsables = {

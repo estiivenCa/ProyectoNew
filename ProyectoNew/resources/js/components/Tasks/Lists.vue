@@ -1,17 +1,21 @@
 <template>
-    <div>
-        <button @click="createTasks()" class="btn btn-dark float-right mr-5">Create Task</button>
-        <div class="w-full sm:w-8/12 md:w-5/12 p-5 bg-white">
+    <div class="container mx-auto p-5">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">List Tasks</h3>
+            <button @click="createTasks()" class="btn btn-primary float-right mb-3">Create Task</button>
+        </div>
+
+        <div class="w-full sm:w-8/12 md:w-6/12 p-6 bg-white rounded-lg shadow-lg">
             <div v-if="showAlert" class="alert alert-success" role="alert">
                 {{ alertMessage }}
             </div>
-            <table class="table">
-                <thead>
+            <table class="table table-hover">
+                <thead class="thead-dark">
                     <tr>
                         <th></th>
                         <th>Date</th>
                         <th>Description</th>
-                        <th>Responsable</th>
+                        <th>Responsible</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -21,17 +25,17 @@
                             <input type="checkbox" :checked="task.completed" @click="completeTask(task)">
                         </td>
                         <td>
-                            <p class="text-muted"> {{ task.fecha }}</p>
+                            <p class="text-muted">{{ task.fecha }}</p>
                         </td>
                         <td>
                             <p class="task-text mx-2 mt-1 text-dark">{{ task.todo }}</p>
                         </td>
                         <td>
-                            <p class="text-muted"> {{ task.responsable.nombres }} {{ task.responsable.apellidos }}</p>
+                            <p class="text-muted">{{ task.responsable.nombres }} {{ task.responsable.apellidos }}</p>
                         </td>
                         <td>
-                            <div class="task-actions">
-                                <router-link :to="'/edit/' + task.id" class="btn btn-link p-0">
+                            <div class="task-actions d-flex justify-content-between">
+                                <router-link :to="'/edit/' + task.id" class="btn btn-outline-primary btn-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path
@@ -40,8 +44,8 @@
                                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                     </svg>
                                 </router-link>
-                                <form @submit.prevent="deleteTask(task.id)" class="delete-form d-inline-block">
-                                    <button type="submit" class="btn btn-link p-0">
+                                <form @submit.prevent="deleteTask(task.id)" class="delete-form d-inline-block ml-2">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path
@@ -57,7 +61,7 @@
                 </tbody>
             </table>
             <advanced-laravel-vue-paginate :data="tasks" @paginateTo="getTasks" />
-            <button @click="goBack()" class="btn btn-secondary  w-100">Back</button>
+            <button @click="goBack()" class="btn btn-secondary w-100 mt-3">Back</button>
         </div>
     </div>
 </template>
@@ -98,6 +102,7 @@ export default {
                 axios.delete('/tasks/' + id)
                     .then(response => {
                         console.log(response)
+                        this.showSuccessAlert('Task delete successfully');
                         this.getTasks();
                     })
                     .catch(error => console.log(error.response));
@@ -113,6 +118,13 @@ export default {
             })
                 .then(response => console.log(response))
                 .catch(error => console.log(error.response));
+        },
+        showSuccessAlert(message) {
+            this.alertMessage = message;
+            this.showAlert = true;
+            setTimeout(() => {
+                this.showAlert = false;
+            }, 3000);
         },
         checkCompleted(params) {
             return params === 1;
@@ -141,6 +153,11 @@ export default {
 </script>
 
 <style>
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .task-item {
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -150,6 +167,7 @@ export default {
 
 .task-item:hover {
     transform: translateY(-2px);
+    background-color: #e9ecef;
 }
 
 .task-text {
@@ -157,10 +175,10 @@ export default {
 }
 
 .task-actions button {
-    color: #dc3545;
+    color: #007bff;
 }
 
 .task-actions button:hover {
-    color: #c82333;
+    color: #0056b3;
 }
 </style>
