@@ -38,8 +38,8 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success text-white mr-2">Guardar</button>
-                            <button @click="goBack()" class="btn btn-secondary">Volver</button>
+                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success text-white mr-2">  Save</button>
+                            <button @click="goBack()" class="btn btn-secondary">Back</button>
                         </div>
                     </div>
                 </form>

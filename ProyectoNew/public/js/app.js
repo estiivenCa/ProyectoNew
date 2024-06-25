@@ -31751,7 +31751,7 @@ var render = function () {
                         staticClass: "btn btn-success text-white mr-2",
                         attrs: { type: "submit" },
                       },
-                      [_vm._v("Guardar")]
+                      [_vm._v("  Save")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -31765,7 +31765,7 @@ var render = function () {
                       },
                     },
                   },
-                  [_vm._v("Volver")]
+                  [_vm._v("Back")]
                 ),
               ]),
             ]),
