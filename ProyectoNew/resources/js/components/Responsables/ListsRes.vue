@@ -49,7 +49,7 @@
             </tbody>
         </table>
         <advanced-laravel-vue-paginate :data="responsables" @paginateTo="getResponsables" />
-        <button @click="goBack()" class="btn btn-secondary ml-5 mt-2">Back</button>
+        <button @click="goBack()" class="btn btn-secondary ml-5 mt-2 mr-5">Back</button>
 
     </form>
 </template>

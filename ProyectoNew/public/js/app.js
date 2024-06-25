@@ -31843,7 +31843,7 @@ var render = function () {
       _c(
         "button",
         {
-          staticClass: "btn btn-secondary ml-5 mt-2",
+          staticClass: "btn btn-secondary ml-5 mt-2 mr-5",
           on: {
             click: function ($event) {
               return _vm.goBack()
