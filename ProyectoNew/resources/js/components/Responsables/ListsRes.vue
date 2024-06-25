@@ -1,6 +1,6 @@
 <template>
     <form class="container text-center mt-5 bg-light">
-        <button @click="createResponsables()" class="btn btn-info float-right">Create Responsable</button>
+        <button @click="createResponsables()" class="btn btn-dark float-right">Create Responsable</button>
         <div v-if="showAlert" class="alert alert-success" role="alert">
             {{ alertMessage }}
         </div>
@@ -20,7 +20,7 @@
                     <td>{{ responsable.apellidos }}</td>
                     <td>{{ responsable.email }}</td>
                     <td>{{ responsable.telefono }}</td>
-                    <td>
+                    <td> 
                         <div class="task-actions">
                             <router-link :to="'/editRes/' + responsable.id" class="btn btn-link p-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -48,8 +48,9 @@
                 </tr>
             </tbody>
         </table>
-        <button @click="goBack()" class="btn btn-secondary ml-5 mt-2">Back</button>
         <advanced-laravel-vue-paginate :data="responsables" @paginateTo="getResponsables" />
+        <button @click="goBack()" class="btn btn-secondary ml-5 mt-2">Back</button>
+
     </form>
 </template>
 

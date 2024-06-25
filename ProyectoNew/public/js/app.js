@@ -7390,6 +7390,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -31700,7 +31701,7 @@ var render = function () {
       _c(
         "button",
         {
-          staticClass: "btn btn-info float-right",
+          staticClass: "btn btn-dark float-right",
           on: {
             click: function ($event) {
               return _vm.createResponsables()
@@ -31834,6 +31835,11 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
+      _c("advanced-laravel-vue-paginate", {
+        attrs: { data: _vm.responsables },
+        on: { paginateTo: _vm.getResponsables },
+      }),
+      _vm._v(" "),
       _c(
         "button",
         {
@@ -31846,11 +31852,6 @@ var render = function () {
         },
         [_vm._v("Back")]
       ),
-      _vm._v(" "),
-      _c("advanced-laravel-vue-paginate", {
-        attrs: { data: _vm.responsables },
-        on: { paginateTo: _vm.getResponsables },
-      }),
     ],
     1
   )
@@ -32346,7 +32347,7 @@ var render = function () {
     _c(
       "button",
       {
-        staticClass: "btn btn-info float-right",
+        staticClass: "btn btn-dark float-right mr-5",
         on: {
           click: function ($event) {
             return _vm.createTasks()

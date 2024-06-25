@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="createTasks()" class="btn btn-info float-right">Create Task</button>
+        <button @click="createTasks()" class="btn btn-dark float-right mr-5">Create Task</button>
         <div class="w-full sm:w-8/12 md:w-5/12 p-5 bg-white">
             <div v-if="showAlert" class="alert alert-success" role="alert">
                 {{ alertMessage }}
