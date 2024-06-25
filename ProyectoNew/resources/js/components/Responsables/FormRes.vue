@@ -48,6 +48,7 @@
 
 <script>
 import { required, email, numeric, maxLength, minLength } from 'vuelidate/lib/validators';
+import axios from 'axios';
 
 export default {
     data() {
@@ -64,7 +65,7 @@ export default {
         responsables: {
             nombres: { required },
             apellidos: { required },
-            email: { required, email, minLength: minLength(5), maxLength: maxLength(20) },
+            email: { required, email, minLength: minLength(5), maxLength: maxLength(30) },
             telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }
     },
@@ -72,7 +73,9 @@ export default {
         saveResponsable() {
             if (!this.$v.$invalid) {
                 axios.post('/responsables', this.responsables)
-                    .then(response => { console.log(response) })
+                    .then(response => {
+                        this.$router.push({ path: '/listRes', query: { successMessage: 'Responsable created successfully!' } });
+                    })
                     .catch(error => { console.log(error.response) });
                 this.responsables = {
                     nombres: '',
@@ -80,7 +83,6 @@ export default {
                     email: '',
                     telefono: ''
                 };
-                this.$router.push('/listRes');
             }
         },
         goBack() {

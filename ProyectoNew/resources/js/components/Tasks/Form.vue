@@ -7,21 +7,27 @@
                     <form method="POST" v-on:submit.prevent="saveTask()">
                         <div class="form-group mb-4" :class="{ 'has-error': $v.tasks.$error }">
                             <label for="description">Descripción:</label>
-                            <input type="text" v-model="$v.tasks.$model" class="form-control" placeholder="New task..." name="todo">
+                            <input type="text" v-model="$v.tasks.$model" class="form-control" placeholder="New task..."
+                                name="todo">
                         </div>
                         <div class="form-group mb-4" :class="{ 'has-error': $v.fecha.$error }">
                             <label for="dueDate">Fecha:</label>
-                            <input type="date" v-model="$v.fecha.$model" class="form-control" id="dueDate" name="dueDate">
+                            <input type="date" v-model="$v.fecha.$model" class="form-control" id="dueDate"
+                                name="dueDate">
                         </div>
                         <div class="form-group mb-4" :class="{ 'has-error': $v.selectedResponsible.$error }">
                             <label for="responsables">Responsable:</label>
-                            <select v-model="$v.selectedResponsible.$model" class="form-control" id="responsable" name="responsables">
+                            <select v-model="$v.selectedResponsible.$model" class="form-control" id="responsable"
+                                name="responsables">
                                 <option value="" disabled>Select Responsable...</option>
-                                <option v-for="responsable in responsables.data" :key="responsable.id" :value="responsable.id">{{ responsable.nombres }} {{ responsable.apellidos }}</option>
+                                <option v-for="responsable in responsables.data" :key="responsable.id"
+                                    :value="responsable.id">{{ responsable.nombres }} {{ responsable.apellidos }}
+                                </option>
                             </select>
                         </div>
                         <div class="form-group d-flex justify-content-between">
-                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success w-100 text-white mr-2">Save</button>
+                            <button type="submit" v-if="!$v.$invalid"
+                                class="btn btn-success w-100 text-white mr-2">Save</button>
                             <button @click="goBack()" class="btn btn-secondary w-100 ml-2">Back</button>
                         </div>
                     </form>
@@ -44,7 +50,7 @@ export default {
             tasks: '',
             fecha: '',
             selectedResponsible: '',
-            responsables: { data: [] }  
+            responsables: { data: [] }
         }
     },
 
@@ -62,20 +68,23 @@ export default {
 
     methods: {
         saveTask() {
-            this.$v.$touch()
+            this.$v.$touch();
             if (!this.$v.$invalid) {
                 axios.post('/tasks', {
                     todo: this.tasks,
                     fecha: this.fecha,
                     responsable_id: this.selectedResponsible
                 })
-                    .then(response => { console.log(response) })
-                    .catch(error => { console.log(error.response) });
-                this.tasks = '';
-                this.fecha = '';
-                this.selectedResponsible = '';
-
-                this.$router.push('/');
+                    .then(response => {
+                        console.log(response);
+                        this.tasks = '';
+                        this.fecha = '';
+                        this.selectedResponsible = '';
+                        this.$router.push({ path: '/', query: { successMessage: 'Task saved successfully!' } });
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
             }
         },
         getResponsables() {
@@ -88,13 +97,13 @@ export default {
                 });
         },
         goBack() {
-            this.$router.push('/')
-        },
+            this.$router.push('/');
+        }
     },
-
     created() {
         this.getResponsables();
     }
+
 }
 </script>
 
@@ -156,15 +165,14 @@ h1 {
     background-color: #6c757d;
     border-color: #6c757d;
 }
-.has-error input, .has-error select {
+
+.has-error input,
+.has-error select {
     border-color: #dc3545;
 }
+
 .error-message {
     color: #dc3545;
     font-size: 0.875em;
 }
-
 </style>
-
-
-

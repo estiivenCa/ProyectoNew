@@ -7205,7 +7205,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -7254,6 +7256,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7270,30 +7273,36 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     responsables: {
       nombres: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
       },
       apellidos: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required,
-        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.email,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.minLength)(5),
-        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.maxLength)(20)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.email,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(5),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(30)
       },
       telefono: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required,
-        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.numeric,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.minLength)(10),
-        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.maxLength)(10)
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.numeric,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(10),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(10)
       }
     }
   },
   methods: {
     saveResponsable: function saveResponsable() {
+      var _this = this;
       if (!this.$v.$invalid) {
-        axios.post('/responsables', this.responsables).then(function (response) {
-          console.log(response);
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post('/responsables', this.responsables).then(function (response) {
+          _this.$router.push({
+            path: '/listRes',
+            query: {
+              successMessage: 'Responsable created successfully!'
+            }
+          });
         })["catch"](function (error) {
           console.log(error.response);
         });
@@ -7303,7 +7312,6 @@ __webpack_require__.r(__webpack_exports__);
           email: '',
           telefono: ''
         };
-        this.$router.push('/listRes');
       }
     },
     goBack: function goBack() {
@@ -7379,12 +7387,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      responsables: {}
+      responsables: {},
+      showAlert: false,
+      alertMessage: ''
     };
   },
   methods: {
@@ -7393,6 +7406,13 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/responsables?page=' + page).then(function (response) {
         _this.responsables = response.data;
+        if (_this.$route.query.successMessage) {
+          _this.showAlert = true;
+          _this.alertMessage = _this.$route.query.successMessage;
+          setTimeout(function () {
+            _this.showAlert = false;
+          }, 3000);
+        }
       })["catch"](function (error) {
         console.log(error);
       });
@@ -7610,6 +7630,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7639,6 +7665,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     saveTask: function saveTask() {
+      var _this = this;
       this.$v.$touch();
       if (!this.$v.$invalid) {
         axios__WEBPACK_IMPORTED_MODULE_0___default().post('/tasks', {
@@ -7647,19 +7674,24 @@ __webpack_require__.r(__webpack_exports__);
           responsable_id: this.selectedResponsible
         }).then(function (response) {
           console.log(response);
+          _this.tasks = '';
+          _this.fecha = '';
+          _this.selectedResponsible = '';
+          _this.$router.push({
+            path: '/',
+            query: {
+              successMessage: 'Task saved successfully!'
+            }
+          });
         })["catch"](function (error) {
           console.log(error.response);
         });
-        this.tasks = '';
-        this.fecha = '';
-        this.selectedResponsible = '';
-        this.$router.push('/');
       }
     },
     getResponsables: function getResponsables() {
-      var _this = this;
+      var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/responsables').then(function (response) {
-        _this.responsables = response.data;
+        _this2.responsables = response.data;
       })["catch"](function (error) {
         console.error('Error al cargar responsables:', error);
       });
@@ -7748,15 +7780,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      tasks: {},
+      tasks: {
+        data: []
+      },
       responsables: [],
       selectedResponsible: null,
       fecha: null,
-      responsable_id: null
+      responsable_id: null,
+      showAlert: false,
+      alertMessage: ''
     };
   },
   methods: {
@@ -7764,42 +7802,44 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get('/tasks?page=' + page).then(function (response) {
-        return _this.tasks = response.data;
-      })["catch"]();
+        _this.tasks = response.data;
+        if (_this.$route.query.successMessage) {
+          _this.showAlert = true;
+          _this.alertMessage = _this.$route.query.successMessage;
+          setTimeout(function () {
+            _this.showAlert = false;
+          }, 3000);
+        }
+      })["catch"](function (error) {
+        return console.error(error);
+      });
     },
     deleteTask: function deleteTask(id) {
+      var _this2 = this;
       if (confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
         axios["delete"]('/tasks/' + id).then(function (response) {
           console.log(response);
+          _this2.getTasks();
         })["catch"](function (error) {
-          console.log(error.response);
+          return console.log(error.response);
         });
-        this.getTasks();
       }
     },
     completeTask: function completeTask(tasks) {
-      if (tasks.completed === 0) {
-        var complete = 1;
-      } else {
-        var complete = 0;
-      }
+      var complete = tasks.completed === 0 ? 1 : 0;
       axios.put('/tasks/' + tasks.id, {
         todo: tasks.todo,
         completed: complete,
         fecha: tasks.fecha,
         responsable_id: tasks.responsable_id
       }).then(function (response) {
-        console.log(response);
+        return console.log(response);
       })["catch"](function (error) {
-        console.log(error.response);
+        return console.log(error.response);
       });
     },
     checkCompleted: function checkCompleted(params) {
-      if (params === 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return params === 1;
     },
     goBack: function goBack() {
       this.$router.push('/home');
@@ -7808,9 +7848,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push('/form');
     },
     getResponsables: function getResponsables() {
-      var _this2 = this;
+      var _this3 = this;
       axios.get('/responsables').then(function (response) {
-        _this2.responsables = response.data;
+        _this3.responsables = response.data;
       })["catch"](function (error) {
         console.error('Error loading responsables:', error);
       });
@@ -12503,7 +12543,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.task-form {\r\n    border-radius: 10px;\r\n    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);\n}\n.task-form h1 {\r\n    font-size: 24px;\n}\n.task-form input[type=\"text\"] {\r\n    border-radius: 5px;\r\n    border: 1px solid #ced4da;\n}\n.task-form input[type=\"submit\"] {\r\n    border-radius: 5px;\r\n    background-color: #28a745;\r\n    border: none;\n}\n.task-form input[type=\"submit\"]:hover {\r\n    background-color: #218838;\n}\n.container {\r\n    margin-top: 50px;\n}\n.task-form {\r\n    background-color: #f8f9fa;\r\n    border-radius: 10px;\r\n    padding: 30px;\r\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n}\nh1 {\r\n    color: #007bff;\n}\n.form-control {\r\n    border-radius: 5px;\r\n    border: 1px solid #ced4da;\n}\n.btn {\r\n    border-radius: 5px;\n}\n.btn-success {\r\n    background-color: #28a745;\r\n    border-color: #28a745;\n}\n.btn-secondary {\r\n    background-color: #6c757d;\r\n    border-color: #6c757d;\n}\n.has-error input, .has-error select {\r\n    border-color: #dc3545;\n}\n.error-message {\r\n    color: #dc3545;\r\n    font-size: 0.875em;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.task-form {\r\n    border-radius: 10px;\r\n    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);\n}\n.task-form h1 {\r\n    font-size: 24px;\n}\n.task-form input[type=\"text\"] {\r\n    border-radius: 5px;\r\n    border: 1px solid #ced4da;\n}\n.task-form input[type=\"submit\"] {\r\n    border-radius: 5px;\r\n    background-color: #28a745;\r\n    border: none;\n}\n.task-form input[type=\"submit\"]:hover {\r\n    background-color: #218838;\n}\n.container {\r\n    margin-top: 50px;\n}\n.task-form {\r\n    background-color: #f8f9fa;\r\n    border-radius: 10px;\r\n    padding: 30px;\r\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n}\nh1 {\r\n    color: #007bff;\n}\n.form-control {\r\n    border-radius: 5px;\r\n    border: 1px solid #ced4da;\n}\n.btn {\r\n    border-radius: 5px;\n}\n.btn-success {\r\n    background-color: #28a745;\r\n    border-color: #28a745;\n}\n.btn-secondary {\r\n    background-color: #6c757d;\r\n    border-color: #6c757d;\n}\n.has-error input,\r\n.has-error select {\r\n    border-color: #dc3545;\n}\n.error-message {\r\n    color: #dc3545;\r\n    font-size: 0.875em;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31670,6 +31710,14 @@ var render = function () {
         [_vm._v("Create Responsable")]
       ),
       _vm._v(" "),
+      _vm.showAlert
+        ? _c(
+            "div",
+            { staticClass: "alert alert-success", attrs: { role: "alert" } },
+            [_vm._v("\n        " + _vm._s(_vm.alertMessage) + "\n    ")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("table", { staticClass: "table table-striped" }, [
         _vm._m(0),
         _vm._v(" "),
@@ -32223,7 +32271,8 @@ var render = function () {
                             _vm._v(
                               _vm._s(responsable.nombres) +
                                 " " +
-                                _vm._s(responsable.apellidos)
+                                _vm._s(responsable.apellidos) +
+                                "\n                            "
                             ),
                           ]
                         )
@@ -32311,6 +32360,18 @@ var render = function () {
       "div",
       { staticClass: "w-full sm:w-8/12 md:w-5/12 p-5 bg-white" },
       [
+        _vm.showAlert
+          ? _c(
+              "div",
+              { staticClass: "alert alert-success", attrs: { role: "alert" } },
+              [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.alertMessage) + "\n        "
+                ),
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c("table", { staticClass: "table" }, [
           _vm._m(0),
           _vm._v(" "),

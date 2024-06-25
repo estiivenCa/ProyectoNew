@@ -1,6 +1,9 @@
 <template>
     <form class="container text-center mt-5 bg-light">
         <button @click="createResponsables()" class="btn btn-info float-right">Create Responsable</button>
+        <div v-if="showAlert" class="alert alert-success" role="alert">
+            {{ alertMessage }}
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -56,7 +59,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            responsables: {}
+            responsables: {},
+            showAlert: false,
+            alertMessage: ''
         }
     },
     methods: {
@@ -64,6 +69,13 @@ export default {
             axios.get('/responsables?page=' + page)
                 .then(response => {
                     this.responsables = response.data;
+                    if (this.$route.query.successMessage) {
+                        this.showAlert = true;
+                        this.alertMessage = this.$route.query.successMessage;
+                        setTimeout(() => {
+                            this.showAlert = false;
+                        }, 3000);
+                    }
                 })
                 .catch(error => {
                     console.log(error);
@@ -93,5 +105,3 @@ export default {
     }
 }
 </script>
-
-<style></style>

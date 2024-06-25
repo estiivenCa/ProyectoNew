@@ -2,6 +2,9 @@
     <div>
         <button @click="createTasks()" class="btn btn-info float-right">Create Task</button>
         <div class="w-full sm:w-8/12 md:w-5/12 p-5 bg-white">
+            <div v-if="showAlert" class="alert alert-success" role="alert">
+                {{ alertMessage }}
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -59,54 +62,60 @@
     </div>
 </template>
 
-
 <script>
 export default {
     data() {
         return {
             tasks: {
+                data: []
             },
             responsables: [],
             selectedResponsible: null,
             fecha: null,
             responsable_id: null,
+            showAlert: false,
+            alertMessage: ''
         }
     },
 
     methods: {
         getTasks(page = 1) {
             axios.get('/tasks?page=' + page)
-                .then(response => this.tasks = response.data)
-                .catch();
+                .then(response => {
+                    this.tasks = response.data;
+                    if (this.$route.query.successMessage) {
+                        this.showAlert = true;
+                        this.alertMessage = this.$route.query.successMessage;
+                        setTimeout(() => {
+                            this.showAlert = false;
+                        }, 3000);
+                    }
+                })
+                .catch(error => console.error(error));
         },
         deleteTask(id) {
             if (confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
                 axios.delete('/tasks/' + id)
-                    .then(response => { console.log(response) })
-                    .catch(error => { console.log(error.response) });
-                this.getTasks();
+                    .then(response => {
+                        console.log(response)
+                        this.getTasks();
+                    })
+                    .catch(error => console.log(error.response));
             }
         },
         completeTask(tasks) {
-            if (tasks.completed === 0) {
-                var complete = 1;
-            } else {
-                var complete = 0;
-            }
+            const complete = tasks.completed === 0 ? 1 : 0;
             axios.put('/tasks/' + tasks.id, {
                 todo: tasks.todo,
                 completed: complete,
                 fecha: tasks.fecha,
                 responsable_id: tasks.responsable_id
-            }).then(response => { console.log(response) })
-                .catch(error => { console.log(error.response) });
+            })
+                .then(response => console.log(response))
+                .catch(error => console.log(error.response));
         },
         checkCompleted(params) {
-            if (params === 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return params === 1;
         },
         goBack() {
             this.$router.push('/home')
@@ -130,6 +139,7 @@ export default {
     }
 }
 </script>
+
 <style>
 .task-item {
     background-color: #f9f9f9;
