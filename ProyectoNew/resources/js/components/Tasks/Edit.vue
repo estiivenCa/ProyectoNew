@@ -65,7 +65,9 @@ export default {
     validations: {
         tasks: {
             todo: {
-                required
+                required,
+                minLength: minLength(7),
+                maxLength: maxLength(30)
             },
             fecha: {
                 required

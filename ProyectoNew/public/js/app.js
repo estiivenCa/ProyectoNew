@@ -7150,10 +7150,14 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     responsables: {
       nombres: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       apellidos: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       email: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
@@ -7259,8 +7263,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -7278,10 +7280,14 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     responsables: {
       nombres: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       apellidos: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       email: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
@@ -7545,7 +7551,9 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     tasks: {
       todo: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(30)
       },
       fecha: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
@@ -7677,7 +7685,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   validations: {
     tasks: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required,
+      minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.minLength)(7),
+      maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.maxLength)(30)
     },
     fecha: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required
@@ -12627,7 +12637,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container {\r\n    max-width: 900px;\r\n    margin: 0 auto;\n}\n.task-item {\r\n    background-color: #f9f9f9;\r\n    border-radius: 8px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n    transition: all 0.3s ease;\n}\n.task-item:hover {\r\n    transform: translateY(-2px);\r\n    background-color: #e9ecef;\n}\n.task-text {\r\n    margin-bottom: 0;\n}\n.task-actions button {\r\n    color: #007bff;\n}\n.task-actions button:hover {\r\n    color: #0056b3;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container {\r\n    max-width: 900px;\r\n    margin: 0 auto;\n}\n.task-item {\r\n    background-color: #f9f9f9;\r\n    border-radius: 8px;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n    transition: all 0.3s ease;\n}\n.task-item:hover {\r\n    transform: translateY(-2px);\r\n    background-color: #e9ecef;\n}\n.task-text {\r\n    margin-bottom: 0;\n}\n.task-actions button {\r\n    color: #007bff;\n}\n.task-actions button:hover {\r\n    color: #0056b3;\n}\n.btn-group .btn {\r\n    margin-right: 5px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31294,9 +31304,7 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "lead" }, [
-        _vm._v(
-          "Seleccione una opción de los menús desplegables a continuación"
-        ),
+        _vm._v("Select an option from the dropdown menus below"),
       ]),
     ])
   },
@@ -31346,7 +31354,7 @@ var render = function () {
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "nombre" } },
-              [_vm._v("Nombre")]
+              [_vm._v("Name:")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -31382,7 +31390,7 @@ var render = function () {
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "apellidos" } },
-              [_vm._v("Apellidos")]
+              [_vm._v("Last Name:")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -31418,7 +31426,7 @@ var render = function () {
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "email" } },
-              [_vm._v("Email")]
+              [_vm._v("Email:")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -31463,7 +31471,7 @@ var render = function () {
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "telefono" } },
-              [_vm._v("Teléfono")]
+              [_vm._v("Phone:")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -31574,7 +31582,7 @@ var render = function () {
                   staticClass: "col-sm-2 col-form-label",
                   attrs: { for: "nombre" },
                 },
-                [_vm._v("Nombres:")]
+                [_vm._v("Nmae:")]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-10" }, [
@@ -31609,7 +31617,7 @@ var render = function () {
                   staticClass: "col-sm-2 col-form-label",
                   attrs: { for: "apellidos" },
                 },
-                [_vm._v("Apellidos:")]
+                [_vm._v("Last Name:")]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-10" }, [
@@ -31678,14 +31686,6 @@ var render = function () {
                     },
                   },
                 }),
-                _vm._v(" "),
-                _vm.$v.responsables.email.$error
-                  ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(
-                        "\n                            Correo inválido.\n                        "
-                      ),
-                    ])
-                  : _vm._e(),
               ]),
             ]),
             _vm._v(" "),
@@ -31696,7 +31696,7 @@ var render = function () {
                   staticClass: "col-sm-2 col-form-label",
                   attrs: { for: "telefono" },
                 },
-                [_vm._v("Teléfono:")]
+                [_vm._v("Phone:")]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-10" }, [
@@ -31731,14 +31731,6 @@ var render = function () {
                     },
                   },
                 }),
-                _vm._v(" "),
-                _vm.$v.responsables.telefono.$error
-                  ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(
-                        "\n                            Teléfono inválido.\n                        "
-                      ),
-                    ])
-                  : _vm._e(),
               ]),
             ]),
             _vm._v(" "),
@@ -31751,7 +31743,7 @@ var render = function () {
                         staticClass: "btn btn-success text-white mr-2",
                         attrs: { type: "submit" },
                       },
-                      [_vm._v("  Save")]
+                      [_vm._v("\n                            Save")]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -31782,7 +31774,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-primary text-white" }, [
       _c("h2", { staticClass: "text-center mb-0" }, [
-        _vm._v("Crear Responsable"),
+        _vm._v("Create Responsable"),
       ]),
     ])
   },
@@ -31830,7 +31822,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("Crear Responsable")]
+            [_vm._v("Create Responsable")]
           ),
         ]
       ),
@@ -32004,15 +31996,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Apellidos")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Last Name")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Teléfono")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Phone")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")]),
       ]),
     ])
   },
@@ -32264,7 +32256,7 @@ var render = function () {
           _c(
             "h1",
             { staticClass: "text-center font-weight-bold py-4 text-primary" },
-            [_vm._v("Creeate Tasks")]
+            [_vm._v("Create Task")]
           ),
           _vm._v(" "),
           _c(
@@ -32287,7 +32279,7 @@ var render = function () {
                 },
                 [
                   _c("label", { attrs: { for: "description" } }, [
-                    _vm._v("Descripción:"),
+                    _vm._v("Description:"),
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -32325,9 +32317,7 @@ var render = function () {
                   class: { "has-error": _vm.$v.fecha.$error },
                 },
                 [
-                  _c("label", { attrs: { for: "dueDate" } }, [
-                    _vm._v("Fecha:"),
-                  ]),
+                  _c("label", { attrs: { for: "dueDate" } }, [_vm._v("Date:")]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -32572,10 +32562,7 @@ var render = function () {
                 _c("td", [
                   _c(
                     "div",
-                    {
-                      staticClass:
-                        "task-actions d-flex justify-content-between",
-                    },
+                    { staticClass: "btn-group", attrs: { role: "group" } },
                     [
                       _c(
                         "router-link",
@@ -32708,7 +32695,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Responsible")]),
+        _c("th", [_vm._v("Responsable")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")]),
       ]),

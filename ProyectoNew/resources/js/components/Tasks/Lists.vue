@@ -15,7 +15,7 @@
                         <th></th>
                         <th>Date</th>
                         <th>Description</th>
-                        <th>Responsible</th>
+                        <th>Responsable</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@
                             <p class="text-muted">{{ task.responsable.nombres }} {{ task.responsable.apellidos }}</p>
                         </td>
                         <td>
-                            <div class="task-actions d-flex justify-content-between">
+                            <div class="btn-group" role="group">
                                 <router-link :to="'/edit/' + task.id" class="btn btn-outline-primary btn-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -180,5 +180,8 @@ export default {
 
 .task-actions button:hover {
     color: #0056b3;
+}
+.btn-group .btn {
+    margin-right: 5px;
 }
 </style>

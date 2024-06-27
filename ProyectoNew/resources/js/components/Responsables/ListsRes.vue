@@ -3,7 +3,7 @@
         <div class="card bg-light shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="mb-0">List Responsables</h3>
-                <button @click="createResponsables()" class="btn btn-dark">Crear Responsable</button>
+                <button @click="createResponsables()" class="btn btn-dark">Create Responsable</button>
             </div>
             <div class="card-body">
                 <div v-if="showAlert" class="alert alert-success" role="alert">
@@ -12,11 +12,11 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellidos</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Last Name</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

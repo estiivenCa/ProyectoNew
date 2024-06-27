@@ -3,17 +3,17 @@
         <h1 class="text-center mb-4">Edit Responsable {{ id }}</h1>
         <form @submit.prevent="saveResponsable">
             <div class="form-group">
-                <label for="nombre" class="form-label">Nombre</label>
+                <label for="nombre" class="form-label">Name:</label>
                 <input type="text" id="nombre" v-model="responsables.nombres" required placeholder="Nombre"
                     class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-3">
-                <label for="apellidos" class="form-label">Apellidos</label>
+                <label for="apellidos" class="form-label">Last Name:</label>
                 <input type="text" id="apellidos" v-model="responsables.apellidos" required placeholder="Apellidos"
                     class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email:</label>
                 <input type="email" id="email" v-model="responsables.email" required maxlength="30" placeholder="Email"
                     class="form-control border-0 border-bottom border-dark text-center">
                 <div v-if="$v.responsables.email.$error" class="text-danger">
@@ -21,9 +21,9 @@
                 </div>
             </div>
             <div class="form-group mt-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" id="telefono" v-model="responsables.telefono" required minlength="10" placeholder="Teléfono"
-                    class="form-control border-0 border-bottom border-dark text-center">
+                <label for="telefono" class="form-label">Phone:</label>
+                <input type="text" id="telefono" v-model="responsables.telefono" required minlength="10"
+                    placeholder="Teléfono" class="form-control border-0 border-bottom border-dark text-center">
                 <div v-if="$v.responsables.telefono.$error" class="text-danger">
                     Teléfono no válido
                 </div>
@@ -54,8 +54,8 @@ export default {
     },
     validations: {
         responsables: {
-            nombres: { required },
-            apellidos: { required },
+            nombres: { required, minLength: minLength(7), maxLength: maxLength(18) },
+            apellidos: { required, minLength: minLength(7), maxLength: maxLength(18) },
             email: { required, email, minLength: minLength(5), maxLength: maxLength(30) },
             telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }

@@ -3,15 +3,15 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div class="task-form p-5 bg-light rounded shadow-sm">
-                    <h1 class="text-center font-weight-bold py-4 text-primary">Creeate Tasks</h1>
+                    <h1 class="text-center font-weight-bold py-4 text-primary">Create Task</h1>
                     <form method="POST" v-on:submit.prevent="saveTask()">
                         <div class="form-group mb-4" :class="{ 'has-error': $v.tasks.$error }">
-                            <label for="description">Descripción:</label>
+                            <label for="description">Description:</label>
                             <input type="text" v-model="$v.tasks.$model" class="form-control" placeholder="New task..."
                                 name="todo">
                         </div>
                         <div class="form-group mb-4" :class="{ 'has-error': $v.fecha.$error }">
-                            <label for="dueDate">Fecha:</label>
+                            <label for="dueDate">Date:</label>
                             <input type="date" v-model="$v.fecha.$model" class="form-control" id="dueDate"
                                 name="dueDate">
                         </div>
@@ -39,7 +39,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { required, maxLength, minLength } from 'vuelidate/lib/validators'
 import axios from 'axios'
 
 export default {
@@ -56,7 +56,9 @@ export default {
 
     validations: {
         tasks: {
-            required
+            required,
+            minLength: minLength(7),
+             maxLength: maxLength(30)
         },
         fecha: {
             required

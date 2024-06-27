@@ -2,43 +2,41 @@
     <div class="container mt-5">
         <div class="card shadow-lg">
             <div class="card-header bg-primary text-white">
-                <h2 class="text-center mb-0">Crear Responsable</h2>
+                <h2 class="text-center mb-0">Create Responsable</h2>
             </div>
             <div class="card-body">
                 <form method="POST" v-on:submit.prevent="saveResponsable()">
                     <div class="form-group row">
-                        <label for="nombre" class="col-sm-2 col-form-label">Nombres:</label>
+                        <label for="nombre" class="col-sm-2 col-form-label">Nmae:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="nombre" v-model="responsables.nombres" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
+                        <label for="apellidos" class="col-sm-2 col-form-label">Last Name:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="apellidos" v-model="responsables.apellidos" required>
+                            <input type="text" class="form-control" id="apellidos" v-model="responsables.apellidos"
+                                required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="email" v-model="responsables.email" required maxLength="30">
-                            <div v-if="$v.responsables.email.$error" class="text-danger">
-                                Correo inválido.
-                            </div>
+                            <input type="email" class="form-control" id="email" v-model="responsables.email" required
+                                maxLength="30">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="telefono" class="col-sm-2 col-form-label">Teléfono:</label>
+                        <label for="telefono" class="col-sm-2 col-form-label">Phone:</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono" required minlength="10" maxlength="10">
-                            <div v-if="$v.responsables.telefono.$error" class="text-danger">
-                                Teléfono inválido.
-                            </div>
+                            <input type="tel" class="form-control" id="telefono" v-model="responsables.telefono"
+                                required minlength="10" maxlength="10">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success text-white mr-2">  Save</button>
+                            <button type="submit" v-if="!$v.$invalid" class="btn btn-success text-white mr-2">
+                                Save</button>
                             <button @click="goBack()" class="btn btn-secondary">Back</button>
                         </div>
                     </div>
@@ -65,8 +63,8 @@ export default {
     },
     validations: {
         responsables: {
-            nombres: { required },
-            apellidos: { required },
+            nombres: { required, minLength: minLength(7), maxLength: maxLength(18) },
+            apellidos: { required, minLength: minLength(7), maxLength: maxLength(18) },
             email: { required, email, minLength: minLength(5), maxLength: maxLength(30) },
             telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }

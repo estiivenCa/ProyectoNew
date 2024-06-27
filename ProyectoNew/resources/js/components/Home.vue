@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <div class="text-center">
             <h1 class="text-primary">Welcome to the Task Creator App</h1>
-            <p class="lead">Seleccione una opción de los menús desplegables a continuación</p>
+            <p class="lead">Select an option from the dropdown menus below</p>
         </div>
         <div class="d-flex justify-content-center mt-4">
             <div class="btn-group mx-2">
