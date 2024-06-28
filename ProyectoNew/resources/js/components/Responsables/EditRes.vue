@@ -16,17 +16,11 @@
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" id="email" v-model="responsables.email" required maxlength="30" placeholder="Email"
                     class="form-control border-0 border-bottom border-dark text-center">
-                <div v-if="$v.responsables.email.$error" class="text-danger">
-                    Correo electrónico no válido
-                </div>
             </div>
             <div class="form-group mt-3">
                 <label for="telefono" class="form-label">Phone:</label>
                 <input type="text" id="telefono" v-model="responsables.telefono" required minlength="10"
                     placeholder="Teléfono" class="form-control border-0 border-bottom border-dark text-center">
-                <div v-if="$v.responsables.telefono.$error" class="text-danger">
-                    Teléfono no válido
-                </div>
             </div>
             <div class="form-group mt-4 text-center">
                 <button type="submit" :disabled="$v.$invalid" class="btn btn-success ml-2 px-5">Save</button>
@@ -54,9 +48,9 @@ export default {
     },
     validations: {
         responsables: {
-            nombres: { required, minLength: minLength(7), maxLength: maxLength(18) },
-            apellidos: { required, minLength: minLength(7), maxLength: maxLength(18) },
-            email: { required, email, minLength: minLength(5), maxLength: maxLength(30) },
+            nombres: { required, minLength: minLength(3), maxLength: maxLength(18) },
+            apellidos: { required, minLength: minLength(3), maxLength: maxLength(18) },
+            email: { required, email, minLength: minLength(5), maxLength: maxLength(20) },
             telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }
     },

@@ -7126,12 +7126,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -7151,19 +7145,19 @@ __webpack_require__.r(__webpack_exports__);
     responsables: {
       nombres: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
         maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       apellidos: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
         maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       email: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
         email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.email,
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(5),
-        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(30)
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(20)
       },
       telefono: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
@@ -7281,19 +7275,19 @@ __webpack_require__.r(__webpack_exports__);
     responsables: {
       nombres: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
         maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       apellidos: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
+        minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
         maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       email: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
         email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.email,
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(5),
-        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(30)
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(20)
       },
       telefono: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
@@ -7936,11 +7930,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"]);
 
-// register as a global Vue component
 
 Vue.use(__webpack_require__(/*! advanced-laravel-vue-paginate */ "./node_modules/advanced-laravel-vue-paginate/dist/advanced-laravel-vue-paginate.common.js"));
-
-// or, import as a single Vue component
 
 
 
@@ -31457,14 +31448,6 @@ var render = function () {
                 },
               },
             }),
-            _vm._v(" "),
-            _vm.$v.responsables.email.$error
-              ? _c("div", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    "\n                Correo electrónico no válido\n            "
-                  ),
-                ])
-              : _vm._e(),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group mt-3" }, [
@@ -31502,12 +31485,6 @@ var render = function () {
                 },
               },
             }),
-            _vm._v(" "),
-            _vm.$v.responsables.telefono.$error
-              ? _c("div", { staticClass: "text-danger" }, [
-                  _vm._v("\n                Teléfono no válido\n            "),
-                ])
-              : _vm._e(),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group mt-4 text-center" }, [

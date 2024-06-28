@@ -63,9 +63,9 @@ export default {
     },
     validations: {
         responsables: {
-            nombres: { required, minLength: minLength(7), maxLength: maxLength(18) },
-            apellidos: { required, minLength: minLength(7), maxLength: maxLength(18) },
-            email: { required, email, minLength: minLength(5), maxLength: maxLength(30) },
+            nombres: { required, minLength: minLength(3), maxLength: maxLength(18) },
+            apellidos: { required, minLength: minLength(3), maxLength: maxLength(18) },
+            email: { required, email, minLength: minLength(5), maxLength: maxLength(20) },
             telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }
     },
