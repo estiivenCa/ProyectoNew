@@ -10,7 +10,7 @@ class ResponsablesController extends Controller
 
     public function index()
     {
-        $Responsables = Responsables::paginate(5);
+        $Responsables = Responsables::paginate(50);
         return response()->json($Responsables);
     }
 
