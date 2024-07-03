@@ -9,8 +9,8 @@
 
 </nav>
 
-<div class="d-flex justify-content-center mt-5">
+
     <router-view></router-view>
-</div>
+
 
 @endsection

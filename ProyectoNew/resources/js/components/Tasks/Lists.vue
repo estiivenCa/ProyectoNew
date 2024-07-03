@@ -181,6 +181,7 @@ export default {
 .task-actions button:hover {
     color: #0056b3;
 }
+
 .btn-group .btn {
     margin-right: 5px;
 }

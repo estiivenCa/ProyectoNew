@@ -58,7 +58,7 @@ export default {
         tasks: {
             required,
             minLength: minLength(7),
-             maxLength: maxLength(30)
+            maxLength: maxLength(30)
         },
         fecha: {
             required
@@ -108,7 +108,6 @@ export default {
 
 }
 </script>
-
 <style>
 .task-form {
     border-radius: 10px;

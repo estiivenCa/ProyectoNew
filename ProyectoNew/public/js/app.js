@@ -7126,6 +7126,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -7185,6 +7188,12 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.error(error.response);
         });
+        this.responsables = {
+          nombres: '',
+          apellidos: '',
+          email: '',
+          telefono: ''
+        };
       }
     },
     goBack: function goBack() {
@@ -7340,6 +7349,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -31488,24 +31499,28 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group mt-4 text-center" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success ml-2 px-5",
-                attrs: { type: "submit", disabled: _vm.$v.$invalid },
-              },
-              [_vm._v("Save")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary ml-2 px-5",
-                attrs: { type: "button" },
-                on: { click: _vm.goBack },
-              },
-              [_vm._v("Back")]
-            ),
+            _c("div", { staticClass: "col-sm-10 offset-sm-1" }, [
+              !_vm.$v.$invalid
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success ml-2 px-5",
+                      attrs: { type: "submit" },
+                    },
+                    [_vm._v("\n                Save")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary ml-2 px-5",
+                  attrs: { type: "button" },
+                  on: { click: _vm.goBack },
+                },
+                [_vm._v("Back")]
+              ),
+            ]),
           ]),
         ]
       ),

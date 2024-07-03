@@ -23,8 +23,11 @@
                     placeholder="Teléfono" class="form-control border-0 border-bottom border-dark text-center">
             </div>
             <div class="form-group mt-4 text-center">
-                <button type="submit" :disabled="$v.$invalid" class="btn btn-success ml-2 px-5">Save</button>
+                <div class="col-sm-10 offset-sm-1">
+                <button type="submit" v-if="!$v.$invalid" class="btn btn-success ml-2 px-5">
+                    Save</button>
                 <button @click="goBack" type="button" class="btn btn-secondary ml-2 px-5">Back</button>
+                </div>
             </div>
         </form>
     </div>
@@ -74,6 +77,12 @@ export default {
                     .catch(error => {
                         console.error(error.response);
                     });
+                    this.responsables = {
+                    nombres: '',
+                    apellidos: '',
+                    email: '',
+                    telefono: ''
+                };
             }
         },
         goBack() {
