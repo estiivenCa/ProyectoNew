@@ -9,6 +9,23 @@
                 <div v-if="showAlert" class="alert alert-success" role="alert">
                     {{ alertMessage }}
                 </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="nombre">Filter by Name:</label>
+                        <input type="text" id="nombre" v-model="nombreQuery" @input="applyFilters" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellido">Filter by Last Name:</label>
+                        <input type="text" id="apellido" v-model="apellidoQuery" @input="applyFilters"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="telefono">Filter by Phone:</label>
+                        <input type="text" id="telefono" v-model="telefonoQuery" @input="applyFilters"
+                            class="form-control">
+                    </div>
+                </div>
+
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -20,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="responsable in responsables.data" :key="responsable.id">
+                        <tr v-for="responsable in filteredResponsables" :key="responsable.id">
                             <td>{{ responsable.nombres }}</td>
                             <td>{{ responsable.apellidos }}</td>
                             <td>{{ responsable.email }}</td>
@@ -45,7 +62,7 @@
                                                 <path
                                                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                                                 <path
-                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                                             </svg>
                                         </button>
                                     </form>
@@ -71,8 +88,34 @@ export default {
         return {
             responsables: {},
             showAlert: false,
-            alertMessage: ''
+            alertMessage: '',
+            nombreQuery: '',
+            apellidoQuery: '',
+            telefonoQuery: ''
         };
+    },
+    computed: {
+        filteredResponsables() {
+            let filteredResponsables = this.responsables.data;
+
+            if (this.nombreQuery.trim() !== '') {
+                filteredResponsables = filteredResponsables.filter(responsable =>
+                    responsable.nombres.toLowerCase().includes(this.nombreQuery.toLowerCase())
+                );
+            }
+            if (this.apellidoQuery.trim() !== '') {
+                filteredResponsables = filteredResponsables.filter(responsable =>
+                    responsable.apellidos.toLowerCase().includes(this.apellidoQuery.toLowerCase())
+                );
+            }
+            if (this.telefonoQuery.trim() !== '') {
+                filteredResponsables = filteredResponsables.filter(responsable =>
+                    responsable.telefono.includes(this.telefonoQuery)
+                );
+            }
+
+            return filteredResponsables;
+        }
     },
     methods: {
         getResponsables(page = 1) {
@@ -116,6 +159,8 @@ export default {
         },
         goBack() {
             this.$router.push('/home');
+        },
+        applyFilters() {
         }
     },
     created() {
@@ -123,6 +168,7 @@ export default {
     }
 };
 </script>
+
 
 <style scoped>
 .card {

@@ -44,7 +44,7 @@
 
 
 <script>
-import { required, email, numeric, maxLength, minLength } from 'vuelidate/lib/validators';
+import { required, email, numeric, maxLength, minLength, alpha, alphaNum } from 'vuelidate/lib/validators';
 import axios from 'axios';
 export default {
     data() {
@@ -66,6 +66,7 @@ export default {
         tasks: {
             todo: {
                 required,
+                alphaNum,
                 minLength: minLength(7),
                 maxLength: maxLength(30)
             },

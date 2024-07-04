@@ -1,70 +1,86 @@
 <template>
     <div class="container mx-auto p-5">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">List Tasks</h3>
-            <button @click="createTasks()" class="btn btn-primary float-right mb-3">Create Task</button>
-        </div>
-
-        <div class="w-full sm:w-8/12 md:w-6/12 p-6 bg-white rounded-lg shadow-lg">
-            <div v-if="showAlert" class="alert alert-success" role="alert">
-                {{ alertMessage }}
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">List Tasks</h3>
+                <button @click="createTasks" class="btn btn-primary">Create Task</button>
             </div>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th></th>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Responsable</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="task in tasks.data" :key="task.id" class="task-item">
-                        <td>
-                            <input type="checkbox" :checked="task.completed" @click="completeTask(task)">
-                        </td>
-                        <td>
-                            <p class="text-muted">{{ task.fecha }}</p>
-                        </td>
-                        <td>
-                            <p class="task-text mx-2 mt-1 text-dark">{{ task.todo }}</p>
-                        </td>
-                        <td>
-                            <p class="text-muted">{{ task.responsable.nombres }} {{ task.responsable.apellidos }}</p>
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <router-link :to="'/edit/' + task.id" class="btn btn-outline-primary btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path
-                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                        <path fill-rule="evenodd"
-                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                    </svg>
-                                </router-link>
-                                <form @submit.prevent="deleteTask(task.id)" class="delete-form d-inline-block ml-2">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                            <path
-                                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+
+            <div class="card-body">
+                <div v-if="showAlert" class="alert alert-success" role="alert">
+                    {{ alertMessage }}
+                </div>
+
+                <div class="filters mb-3">
+                    <div class="form-group">
+                        <label>Filter by Date:</label>
+                        <input type="date" v-model="fecha" @change="filterByDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Filter by Responsable:</label>
+                        <select v-model="responsable_id" @change="filterByResponsible" class="form-control">
+                            <option value="">Select Responsable</option>
+                            <option v-for="responsable in responsables.data" :key="responsable.id" :value="responsable.id">
+                                {{ responsable.nombres }} {{ responsable.apellidos }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Responsable</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="task in filteredTasks" :key="task.id" class="task-item">
+                            <td>
+                                <input type="checkbox" :checked="task.completed" @click="completeTask(task)">
+                            </td>
+                            <td>
+                                <p class="text-muted">{{ task.fecha }}</p>
+                            </td>
+                            <td>
+                                <p class="task-text">{{ task.todo }}</p>
+                            </td>
+                            <td>
+                                <p class="text-muted">{{ task.responsable.nombres }} {{ task.responsable.apellidos }}</p>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <router-link :to="'/edit/' + task.id" class="btn btn-outline-primary btn-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                         </svg>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <advanced-laravel-vue-paginate :data="tasks" @paginateTo="getTasks" />
-            <button @click="goBack()" class="btn btn-secondary w-100 mt-3">Back</button>
+                                    </router-link>
+                                    <form @submit.prevent="deleteTask(task.id)" class="delete-form d-inline-block ml-2">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <advanced-laravel-vue-paginate :data="tasks" @paginateTo="getTasks" />
+
+                <button @click="goBack" class="btn btn-secondary w-100 mt-3">Back</button>
+            </div>
         </div>
     </div>
 </template>
+
 
 <script>
 export default {
@@ -78,7 +94,23 @@ export default {
             fecha: null,
             responsable_id: null,
             showAlert: false,
-            alertMessage: ''
+            alertMessage: '',
+            originalTasks: []
+        }
+    },
+
+    computed: {
+        filteredTasks() {
+            let tasks = this.originalTasks;
+
+            if (this.fecha) {
+                tasks = tasks.filter(task => task.fecha === this.fecha);
+            }
+            if (this.responsable_id) {
+                tasks = tasks.filter(task => task.responsable.id === this.responsable_id);
+            }
+
+            return tasks;
         }
     },
 
@@ -87,6 +119,7 @@ export default {
             axios.get('/tasks?page=' + page)
                 .then(response => {
                     this.tasks = response.data;
+                    this.originalTasks = response.data.data;
                     if (this.$route.query.successMessage) {
                         this.showAlert = true;
                         this.alertMessage = this.$route.query.successMessage;
@@ -144,6 +177,17 @@ export default {
                     console.error('Error loading responsables:', error);
                 });
         },
+        filterByDate() {
+            this.responsable_id = null;
+            this.applyFilters();
+        },
+        filterByResponsible() {
+            this.fecha = null;
+            this.applyFilters();
+        },
+        applyFilters() {
+            this.getTasks();
+        }
     },
     created() {
         this.getTasks();
@@ -151,6 +195,7 @@ export default {
     }
 }
 </script>
+
 
 <style>
 .container {
@@ -184,5 +229,20 @@ export default {
 
 .btn-group .btn {
     margin-right: 5px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-item {
+    border-top: 1px solid #dee2e6;
+}
+
+.task-item:first-child {
+    border-top: none;
 }
 </style>

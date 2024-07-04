@@ -47,8 +47,9 @@
 </template>
 
 <script>
-import { required, email, numeric, maxLength, minLength } from 'vuelidate/lib/validators';
+import { required, email, numeric, maxLength, minLength, alpha } from 'vuelidate/lib/validators';
 import axios from 'axios';
+const alphaSpaces = value => /^[A-Za-z\s]+$/.test(value);
 
 export default {
     data() {
@@ -63,10 +64,10 @@ export default {
     },
     validations: {
         responsables: {
-            nombres: { required, minLength: minLength(3), maxLength: maxLength(18) },
-            apellidos: { required, minLength: minLength(3), maxLength: maxLength(18) },
-            email: { required, email, minLength: minLength(5), maxLength: maxLength(20) },
-            telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
+            nombres: { required,  alphaSpaces, minLength: minLength(3), maxLength: maxLength(18) },
+            apellidos: { required,  alphaSpaces,  minLength: minLength(3), maxLength: maxLength(18) },
+            email: { required, email,  minLength: minLength(5), maxLength: maxLength(20) },
+            telefono: { required, numeric,  minLength: minLength(10), maxLength: maxLength(10) }
         }
     },
     methods: {

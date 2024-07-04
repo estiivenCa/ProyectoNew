@@ -39,7 +39,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, maxLength, minLength } from 'vuelidate/lib/validators'
+import { required, maxLength, minLength, alphaNum } from 'vuelidate/lib/validators'
 import axios from 'axios'
 
 export default {
@@ -57,6 +57,7 @@ export default {
     validations: {
         tasks: {
             required,
+            alphaNum,
             minLength: minLength(7),
             maxLength: maxLength(30)
         },
@@ -72,6 +73,14 @@ export default {
         saveTask() {
             this.$v.$touch();
             if (!this.$v.$invalid) {
+                const currentDate = new Date();
+                const selectedDate = new Date(this.fecha);
+
+                if (selectedDate <= currentDate) {
+                    alert('La fecha no puede ser antigua.');
+                    return;
+                }
+
                 axios.post('/tasks', {
                     todo: this.tasks,
                     fecha: this.fecha,
