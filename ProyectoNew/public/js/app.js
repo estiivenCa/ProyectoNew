@@ -7583,7 +7583,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -7599,8 +7598,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       error: '',
       errorFecha: '',
-      selectedResponsible: null,
-      responsables: []
+      responsables: {
+        data: []
+      }
     };
   },
   validations: {
@@ -7617,36 +7617,37 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this = this;
+    this.getTaskDetails();
     this.getResponsables();
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/tasks/".concat(this.id, "/edit")).then(function (response) {
-      _this.tasks = response.data;
-      _this.tasks.responsable_id = _this.tasks.responsable_id;
-    })["catch"](function (error) {
-      return console.error('Error al cargar la tarea:', error);
-    });
   },
   methods: {
+    getTaskDetails: function getTaskDetails() {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/tasks/".concat(this.id, "/edit")).then(function (response) {
+        _this.tasks = response.data;
+      })["catch"](function (error) {
+        console.error('Error loading task details:', error);
+      });
+    },
     getResponsables: function getResponsables() {
       var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('/responsables').then(function (response) {
         _this2.responsables = response.data;
       })["catch"](function (error) {
-        console.error('Error al cargar responsables:', error);
+        console.error('Error loading responsables:', error);
       });
     },
     saveTask: function saveTask() {
       var _this3 = this;
+      this.$v.$touch();
       if (!this.$v.$invalid) {
-        if (!this.tasks.fecha) {
-          this.errorFecha = 'Date cannot be empty.';
+        var currentDate = new Date();
+        var selectedDate = new Date(this.tasks.fecha);
+        if (selectedDate <= currentDate) {
+          alert('la fecha no puede ser antigua');
           return;
         } else {
           this.errorFecha = '';
-        }
-        if (!this.tasks.todo.trim()) {
-          this.error = 'Task description empty.';
-          return;
         }
         axios__WEBPACK_IMPORTED_MODULE_0___default().put("/tasks/".concat(this.id), {
           todo: this.tasks.todo,
@@ -7657,7 +7658,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(response);
           _this3.$router.push('/');
         })["catch"](function (error) {
-          console.error('Error al guardar la tarea:', error);
+          console.error('Error saving task:', error);
         });
       }
     },
@@ -7762,6 +7763,7 @@ __webpack_require__.r(__webpack_exports__);
         var selectedDate = new Date(this.fecha);
         if (selectedDate <= currentDate) {
           alert('La fecha no puede ser antigua.');
+          this.fecha = '';
           return;
         }
         axios__WEBPACK_IMPORTED_MODULE_0___default().post('/tasks', {
@@ -7814,6 +7816,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 //
 //
 //
@@ -7901,7 +7907,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
+    return _defineProperty({
       tasks: {
         data: []
       },
@@ -7912,7 +7918,7 @@ __webpack_require__.r(__webpack_exports__);
       showAlert: false,
       alertMessage: '',
       originalTasks: []
-    };
+    }, "responsable_id", '');
   },
   computed: {
     filteredTasks: function filteredTasks() {
@@ -32768,9 +32774,7 @@ var render = function () {
                   },
                 },
                 [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v("Select Responsable"),
-                  ]),
+                  _c("option", { attrs: { value: "" } }, [_vm._v("All ")]),
                   _vm._v(" "),
                   _vm._l(_vm.responsables.data, function (responsable) {
                     return _c(

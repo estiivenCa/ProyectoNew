@@ -42,10 +42,10 @@
     </div>
 </template>
 
-
 <script>
-import { required, email, numeric, maxLength, minLength, alpha, alphaNum } from 'vuelidate/lib/validators';
+import { required, maxLength, minLength, alphaNum } from 'vuelidate/lib/validators';
 import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -58,8 +58,7 @@ export default {
             },
             error: '',
             errorFecha: '',
-            selectedResponsible: null,
-            responsables: []
+            responsables: { data: [] }
         };
     },
     validations: {
@@ -76,35 +75,39 @@ export default {
         }
     },
     created() {
+        this.getTaskDetails();
         this.getResponsables();
-        axios.get(`/tasks/${this.id}/edit`)
-            .then(response => {
-                this.tasks = response.data;
-                this.tasks.responsable_id = this.tasks.responsable_id;
-            })
-            .catch(error => console.error('Error al cargar la tarea:', error));
     },
     methods: {
+        getTaskDetails() {
+            axios.get(`/tasks/${this.id}/edit`)
+                .then(response => {
+                    this.tasks = response.data;
+                })
+                .catch(error => {
+                    console.error('Error loading task details:', error);
+                });
+        },
         getResponsables() {
             axios.get('/responsables')
                 .then(response => {
                     this.responsables = response.data;
                 })
                 .catch(error => {
-                    console.error('Error al cargar responsables:', error);
+                    console.error('Error loading responsables:', error);
                 });
         },
         saveTask() {
+            this.$v.$touch();
             if (!this.$v.$invalid) {
-                if (!this.tasks.fecha) {
-                    this.errorFecha = 'Date cannot be empty.';
+                const currentDate = new Date();
+                const selectedDate = new Date(this.tasks.fecha);
+
+                if (selectedDate <= currentDate) {
+                    alert('la fecha no puede ser antigua')
                     return;
                 } else {
                     this.errorFecha = '';
-                }
-                if (!this.tasks.todo.trim()) {
-                    this.error = 'Task description empty.';
-                    return;
                 }
 
                 axios.put(`/tasks/${this.id}`, {
@@ -118,7 +121,7 @@ export default {
                         this.$router.push('/');
                     })
                     .catch(error => {
-                        console.error('Error al guardar la tarea:', error);
+                        console.error('Error saving task:', error);
                     });
             }
         },
@@ -128,6 +131,7 @@ export default {
     }
 };
 </script>
+
 <style>
 .task-form {
     border-radius: 10px;

@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label>Filter by Responsable:</label>
                         <select v-model="responsable_id" @change="filterByResponsible" class="form-control">
-                            <option value="">Select Responsable</option>
+                            <option value="">All </option>
                             <option v-for="responsable in responsables.data" :key="responsable.id" :value="responsable.id">
                                 {{ responsable.nombres }} {{ responsable.apellidos }}
                             </option>
@@ -95,7 +95,8 @@ export default {
             responsable_id: null,
             showAlert: false,
             alertMessage: '',
-            originalTasks: []
+            originalTasks: [],
+            responsable_id: ''
         }
     },
 

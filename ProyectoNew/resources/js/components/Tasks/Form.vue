@@ -78,7 +78,9 @@ export default {
 
                 if (selectedDate <= currentDate) {
                     alert('La fecha no puede ser antigua.');
+                    this.fecha = '';
                     return;
+                    
                 }
 
                 axios.post('/tasks', {
