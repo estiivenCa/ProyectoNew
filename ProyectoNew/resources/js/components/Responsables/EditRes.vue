@@ -24,9 +24,9 @@
             </div>
             <div class="form-group mt-4 text-center">
                 <div class="col-sm-10 offset-sm-1">
-                <button type="submit" v-if="!$v.$invalid" class="btn btn-success ml-2 px-5">
-                    Save</button>
-                <button @click="goBack" type="button" class="btn btn-secondary ml-2 px-5">Back</button>
+                    <button type="submit" v-if="!$v.$invalid" class="btn btn-success ml-2 px-5">
+                        Save</button>
+                    <button @click="goBack" type="button" class="btn btn-secondary ml-2 px-5">Back</button>
                 </div>
             </div>
         </form>
@@ -36,6 +36,7 @@
 <script>
 import axios from 'axios';
 import { required, email, numeric, maxLength, minLength, alpha } from 'vuelidate/lib/validators';
+const alphaSpaces = value => /^[A-Za-z\s]+$/.test(value);
 
 export default {
     data() {
@@ -51,8 +52,8 @@ export default {
     },
     validations: {
         responsables: {
-            nombres: { required, alpha, minLength: minLength(3), maxLength: maxLength(18) },
-            apellidos: { required, alpha, minLength: minLength(3), maxLength: maxLength(18) },
+            nombres: { required, alphaSpaces, minLength: minLength(3), maxLength: maxLength(18) },
+            apellidos: { required, alphaSpaces, minLength: minLength(3), maxLength: maxLength(18) },
             email: { required, email, minLength: minLength(5), maxLength: maxLength(20) },
             telefono: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }
@@ -77,7 +78,7 @@ export default {
                     .catch(error => {
                         console.error(error.response);
                     });
-                    this.responsables = {
+                this.responsables = {
                     nombres: '',
                     apellidos: '',
                     email: '',

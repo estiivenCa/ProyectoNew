@@ -41,6 +41,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, minLength, alphaNum } from 'vuelidate/lib/validators'
 import axios from 'axios'
+const alphaSpaces = value => /^[A-Za-z0-9\s]+$/.test(value);
 
 export default {
     mixins: [validationMixin],
@@ -57,9 +58,9 @@ export default {
     validations: {
         tasks: {
             required,
-            alphaNum,
+            alphaSpaces,
             minLength: minLength(7),
-            maxLength: maxLength(30)
+            maxLength: maxLength(50)
         },
         fecha: {
             required
@@ -76,11 +77,10 @@ export default {
                 const currentDate = new Date();
                 const selectedDate = new Date(this.fecha);
 
-                if (selectedDate <= currentDate) {
+                if (selectedDate < currentDate) {
                     alert('La fecha no puede ser antigua.');
                     this.fecha = '';
                     return;
-                    
                 }
 
                 axios.post('/tasks', {
@@ -116,7 +116,6 @@ export default {
     created() {
         this.getResponsables();
     }
-
 }
 </script>
 <style>

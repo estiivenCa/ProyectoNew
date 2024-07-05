@@ -45,6 +45,7 @@
 <script>
 import { required, maxLength, minLength, alphaNum } from 'vuelidate/lib/validators';
 import axios from 'axios';
+const alphaSpaces = value => /^[A-Za-z0-9\s]+$/.test(value);
 
 export default {
     data() {
@@ -65,9 +66,9 @@ export default {
         tasks: {
             todo: {
                 required,
-                alphaNum,
+                alphaSpaces,
                 minLength: minLength(7),
-                maxLength: maxLength(30)
+                maxLength: maxLength(50)
             },
             fecha: {
                 required
@@ -103,13 +104,13 @@ export default {
                 const currentDate = new Date();
                 const selectedDate = new Date(this.tasks.fecha);
 
-                if (selectedDate <= currentDate) {
-                    alert('la fecha no puede ser antigua')
+                if (selectedDate < currentDate) {
+                    alert('La fecha no puede ser antigua');
+                    this.tasks.fecha = '';
                     return;
                 } else {
                     this.errorFecha = '';
                 }
-
                 axios.put(`/tasks/${this.id}`, {
                     todo: this.tasks.todo,
                     fecha: this.tasks.fecha,

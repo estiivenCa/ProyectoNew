@@ -7132,6 +7132,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var alphaSpaces = function alphaSpaces(value) {
+  return /^[A-Za-z\s]+$/.test(value);
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7148,13 +7151,13 @@ __webpack_require__.r(__webpack_exports__);
     responsables: {
       nombres: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        alpha: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.alpha,
+        alphaSpaces: alphaSpaces,
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
         maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
       apellidos: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        alpha: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.alpha,
+        alphaSpaces: alphaSpaces,
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(3),
         maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(18)
       },
@@ -7422,22 +7425,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7448,7 +7435,8 @@ __webpack_require__.r(__webpack_exports__);
       alertMessage: '',
       nombreQuery: '',
       apellidoQuery: '',
-      telefonoQuery: ''
+      telefonoQuery: '',
+      emailQuery: ''
     };
   },
   computed: {
@@ -7468,6 +7456,11 @@ __webpack_require__.r(__webpack_exports__);
       if (this.telefonoQuery.trim() !== '') {
         filteredResponsables = filteredResponsables.filter(function (responsable) {
           return responsable.telefono.includes(_this.telefonoQuery);
+        });
+      }
+      if (this.emailQuery.trim() !== '') {
+        filteredResponsables = filteredResponsables.filter(function (responsable) {
+          return responsable.email.includes(_this.emailQuery);
         });
       }
       return filteredResponsables;
@@ -7586,6 +7579,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var alphaSpaces = function alphaSpaces(value) {
+  return /^[A-Za-z0-9\s]+$/.test(value);
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7607,9 +7603,9 @@ __webpack_require__.r(__webpack_exports__);
     tasks: {
       todo: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-        alphaNum: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.alphaNum,
+        alphaSpaces: alphaSpaces,
         minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(7),
-        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(30)
+        maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.maxLength)(50)
       },
       fecha: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
@@ -7643,8 +7639,9 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.$invalid) {
         var currentDate = new Date();
         var selectedDate = new Date(this.tasks.fecha);
-        if (selectedDate <= currentDate) {
-          alert('la fecha no puede ser antigua');
+        if (selectedDate < currentDate) {
+          alert('La fecha no puede ser antigua');
+          this.tasks.fecha = '';
           return;
         } else {
           this.errorFecha = '';
@@ -7728,6 +7725,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var alphaSpaces = function alphaSpaces(value) {
+  return /^[A-Za-z0-9\s]+$/.test(value);
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [vuelidate__WEBPACK_IMPORTED_MODULE_1__.validationMixin],
   data: function data() {
@@ -7743,9 +7743,9 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     tasks: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required,
-      alphaNum: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.alphaNum,
+      alphaSpaces: alphaSpaces,
       minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.minLength)(7),
-      maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.maxLength)(30)
+      maxLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.maxLength)(50)
     },
     fecha: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__.required
@@ -7761,7 +7761,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.$invalid) {
         var currentDate = new Date();
         var selectedDate = new Date(this.fecha);
-        if (selectedDate <= currentDate) {
+        if (selectedDate < currentDate) {
           alert('La fecha no puede ser antigua.');
           this.fecha = '';
           return;
@@ -7820,10 +7820,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-//
-//
-//
-//
 //
 //
 //
@@ -31617,7 +31613,7 @@ var render = function () {
                       staticClass: "btn btn-success ml-2 px-5",
                       attrs: { type: "submit" },
                     },
-                    [_vm._v("\n                Save")]
+                    [_vm._v("\n                    Save")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -31909,7 +31905,7 @@ var render = function () {
         "div",
         {
           staticClass:
-            "card-header d-flex justify-content-between align-items-center",
+            "card-header d-flex justify-content-between align-items-center bg-primary text-white",
         },
         [
           _c("h3", { staticClass: "mb-0" }, [_vm._v("List Responsables")]),
@@ -31917,7 +31913,7 @@ var render = function () {
           _c(
             "button",
             {
-              staticClass: "btn btn-dark",
+              staticClass: "btn btn-light",
               on: {
                 click: function ($event) {
                   return _vm.createResponsables()
@@ -31940,113 +31936,148 @@ var render = function () {
                   staticClass: "alert alert-success",
                   attrs: { role: "alert" },
                 },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.alertMessage) +
-                      "\n            "
-                  ),
-                ]
+                [_vm._v("\n        " + _vm._s(_vm.alertMessage) + "\n      ")]
               )
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("label", { attrs: { for: "nombre" } }, [
-                _vm._v("Filter by Name:"),
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.nombreQuery,
-                    expression: "nombreQuery",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", id: "nombre" },
-                domProps: { value: _vm.nombreQuery },
-                on: {
-                  input: [
-                    function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.nombreQuery = $event.target.value
-                    },
-                    _vm.applyFilters,
-                  ],
-                },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("label", { attrs: { for: "apellido" } }, [
-                _vm._v("Filter by Last Name:"),
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.apellidoQuery,
-                    expression: "apellidoQuery",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", id: "apellido" },
-                domProps: { value: _vm.apellidoQuery },
-                on: {
-                  input: [
-                    function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.apellidoQuery = $event.target.value
-                    },
-                    _vm.applyFilters,
-                  ],
-                },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("label", { attrs: { for: "telefono" } }, [
-                _vm._v("Filter by Phone:"),
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.telefonoQuery,
-                    expression: "telefonoQuery",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", id: "telefono" },
-                domProps: { value: _vm.telefonoQuery },
-                on: {
-                  input: [
-                    function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.telefonoQuery = $event.target.value
-                    },
-                    _vm.applyFilters,
-                  ],
-                },
-              }),
-            ]),
-          ]),
-          _vm._v(" "),
           _c("table", { staticClass: "table table-striped table-hover" }, [
-            _vm._m(0),
+            _c("thead", { staticClass: "thead-dark" }, [
+              _c("tr", [
+                _c(
+                  "th",
+                  { staticClass: "text-center", attrs: { scope: "col" } },
+                  [
+                    _vm._v("Name\n              "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nombreQuery,
+                          expression: "nombreQuery",
+                        },
+                      ],
+                      staticClass: "form-control form-control-sm mt-1",
+                      attrs: { type: "text", id: "nombre" },
+                      domProps: { value: _vm.nombreQuery },
+                      on: {
+                        input: [
+                          function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.nombreQuery = $event.target.value
+                          },
+                          _vm.applyFilters,
+                        ],
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  { staticClass: "text-center", attrs: { scope: "col" } },
+                  [
+                    _vm._v("Last Name\n              "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.apellidoQuery,
+                          expression: "apellidoQuery",
+                        },
+                      ],
+                      staticClass: "form-control form-control-sm mt-1",
+                      attrs: { type: "text", id: "apellido" },
+                      domProps: { value: _vm.apellidoQuery },
+                      on: {
+                        input: [
+                          function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.apellidoQuery = $event.target.value
+                          },
+                          _vm.applyFilters,
+                        ],
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  { staticClass: "text-center", attrs: { scope: "col" } },
+                  [
+                    _vm._v("Email\n                "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.emailQuery,
+                          expression: "emailQuery",
+                        },
+                      ],
+                      staticClass: "form-control form-control-sm mt-1",
+                      attrs: { type: "text", id: "email" },
+                      domProps: { value: _vm.emailQuery },
+                      on: {
+                        input: [
+                          function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.emailQuery = $event.target.value
+                          },
+                          _vm.applyFilters,
+                        ],
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  { staticClass: "text-center", attrs: { scope: "col" } },
+                  [
+                    _vm._v("Phone\n              "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.telefonoQuery,
+                          expression: "telefonoQuery",
+                        },
+                      ],
+                      staticClass: "form-control form-control-sm mt-1",
+                      attrs: { type: "text", id: "telefono" },
+                      domProps: { value: _vm.telefonoQuery },
+                      on: {
+                        input: [
+                          function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.telefonoQuery = $event.target.value
+                          },
+                          _vm.applyFilters,
+                        ],
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  { staticClass: "text-center", attrs: { scope: "col" } },
+                  [_vm._v("Actions")]
+                ),
+              ]),
+            ]),
             _vm._v(" "),
             _c(
               "tbody",
@@ -32186,26 +32217,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Last Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Phone")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")]),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -32672,19 +32684,19 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mx-auto p-5" }, [
-    _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card shadow-sm" }, [
       _c(
         "div",
         {
           staticClass:
-            "card-header d-flex justify-content-between align-items-center",
+            "card-header d-flex justify-content-between align-items-center bg-primary text-white",
         },
         [
           _c("h3", { staticClass: "mb-0" }, [_vm._v("List Tasks")]),
           _vm._v(" "),
           _c(
             "button",
-            { staticClass: "btn btn-primary", on: { click: _vm.createTasks } },
+            { staticClass: "btn btn-light", on: { click: _vm.createTasks } },
             [_vm._v("Create Task")]
           ),
         ]
@@ -32701,107 +32713,105 @@ var render = function () {
                   staticClass: "alert alert-success",
                   attrs: { role: "alert" },
                 },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.alertMessage) +
-                      "\n            "
-                  ),
-                ]
+                [_vm._v("\n        " + _vm._s(_vm.alertMessage) + "\n      ")]
               )
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "filters mb-3" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Filter by Date:")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fecha,
-                    expression: "fecha",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "date" },
-                domProps: { value: _vm.fecha },
-                on: {
-                  change: _vm.filterByDate,
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.fecha = $event.target.value
-                  },
-                },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Filter by Responsable:")]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.responsable_id,
-                      expression: "responsable_id",
-                    },
-                  ],
-                  staticClass: "form-control",
-                  on: {
-                    change: [
-                      function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.responsable_id = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      _vm.filterByResponsible,
-                    ],
-                  },
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [_vm._v("All ")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.responsables.data, function (responsable) {
-                    return _c(
-                      "option",
-                      {
-                        key: responsable.id,
-                        domProps: { value: responsable.id },
-                      },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(responsable.nombres) +
-                            " " +
-                            _vm._s(responsable.apellidos) +
-                            "\n                        "
-                        ),
-                      ]
-                    )
-                  }),
-                ],
-                2
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
           _c("table", { staticClass: "table table-hover" }, [
-            _vm._m(0),
+            _c("thead", { staticClass: "thead-dark" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th"),
+                _vm._v(" "),
+                _c("th", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fecha,
+                        expression: "fecha",
+                      },
+                    ],
+                    staticClass: "form-control form-control-sm",
+                    attrs: { type: "date" },
+                    domProps: { value: _vm.fecha },
+                    on: {
+                      change: _vm.filterByDate,
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.fecha = $event.target.value
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("th"),
+                _vm._v(" "),
+                _c("th", [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.responsable_id,
+                          expression: "responsable_id",
+                        },
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      on: {
+                        change: [
+                          function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.responsable_id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          _vm.filterByResponsible,
+                        ],
+                      },
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
+                      _vm._v(" "),
+                      _vm._l(_vm.responsables.data, function (responsable) {
+                        return _c(
+                          "option",
+                          {
+                            key: responsable.id,
+                            domProps: { value: responsable.id },
+                          },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(responsable.nombres) +
+                                " " +
+                                _vm._s(responsable.apellidos) +
+                                "\n                "
+                            ),
+                          ]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("th"),
+              ]),
+            ]),
             _vm._v(" "),
             _c(
               "tbody",
@@ -32819,20 +32829,20 @@ var render = function () {
                     }),
                   ]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c("p", { staticClass: "text-muted" }, [
+                  _c("td", { staticClass: "text-center" }, [
+                    _c("p", { staticClass: "text-muted mb-0" }, [
                       _vm._v(_vm._s(task.fecha)),
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c("p", { staticClass: "task-text" }, [
+                  _c("td", { staticClass: "text-center" }, [
+                    _c("p", { staticClass: "mb-0" }, [
                       _vm._v(_vm._s(task.todo)),
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c("p", { staticClass: "text-muted" }, [
+                  _c("td", { staticClass: "text-center" }, [
+                    _c("p", { staticClass: "text-muted mb-0" }, [
                       _vm._v(
                         _vm._s(task.responsable.nombres) +
                           " " +
@@ -32841,7 +32851,7 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("td", [
+                  _c("td", { staticClass: "text-center" }, [
                     _c(
                       "div",
                       { staticClass: "btn-group", attrs: { role: "group" } },
@@ -32966,17 +32976,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-dark" }, [
-      _c("tr", [
-        _c("th"),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Description")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Responsable")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")]),
+    return _c("tr", [
+      _c("th", { attrs: { scope: "col" } }),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center", attrs: { scope: "col" } }, [
+        _vm._v("Date"),
+      ]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center", attrs: { scope: "col" } }, [
+        _vm._v("Description"),
+      ]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center", attrs: { scope: "col" } }, [
+        _vm._v("Responsable"),
+      ]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center", attrs: { scope: "col" } }, [
+        _vm._v("Actions"),
       ]),
     ])
   },
